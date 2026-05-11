@@ -1,45 +1,67 @@
-# 🛡️ Safe Script Runner for AI IDEs
+<div align="center">
 
-[![Support](https://img.shields.io/badge/Support-Cursor%20%7C%20Trae%20%7C%20Windsurf%20%7C%20Cline-blue)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# ✦ AI Rules Hub
 
-[🇨🇳 中文文档 (Chinese)](README_zh-CN.md)
+**个人 AI 规则合集** · 将专业行为约束封装为可复用的规则文件
 
-**A single rule to stop AI from freezing your terminal with broken single-line commands.**
+[![Rules](https://img.shields.io/badge/rules-1-6366f1?style=flat-square&logo=shield-check&logoColor=white)](./rules/)
+[![License](https://img.shields.io/badge/license-MIT-0ea5e9?style=flat-square)](./LICENSE.md)
 
-## 🤔 The Problem
-
-When using AI-assisted coding tools (like Cursor, Trae, Windsurf, or Cline), the AI often tries to execute complex logic using single-line inline scripts in the terminal, such as `node -e "..."` or `python -c "..."`.
-
-Because environments like Windows PowerShell and Bash have completely different rules for escaping single/double quotes, `%`, and `$`, this behavior often leads to:
-- ❌ PowerShell misinterpreting `%` in SQL comments as `ForEach-Object`, causing the terminal to freeze and wait for input.
-- ❌ Broken quote closures when parsing complex JSON strings in the CLI.
-- ❌ Loss of crucial environment variables (like database passwords from `.env`) within the AI sandbox.
-
-## 💡 The Solution
-
-This directive forces the AI to abandon the risky "inline command" habit and adopt a strict, robust engineering workflow:
-1. Create a standalone temporary script file prefixed with `temp_`.
-2. Explicitly load `dotenv` to ensure environment variables are present.
-3. Execute the file cleanly, and automatically delete it afterward to maintain a pristine workspace.
-
-## 🚀 Quick Start
-
-Depending on your IDE, copy the contents of [`rules/rule.md`](rules/rule.md) (or [`rules/rule_zh-CN.md`](rules/rule_zh-CN.md) for Chinese prompts) into your project's configuration file:
-
-- **Cursor**: Append to `.cursorrules`
-- **Windsurf**: Append to `.windsurfrules`
-- **Trae**: Append to `.trae/rules/project_rules.md`
-- **CLI Agents (Cline / Aider)**: Paste into your Custom System Prompt.
+</div>
 
 ---
 
-### 🛡️ Best Practice
+## 什么是 Rule？
 
-To prevent the AI's temporary test data or hardcoded credentials from polluting your repository, add the following to your project's `.gitignore`:
+Rule 是不构成独立 Skill、但值得全局遵守的行为约束。它比 Skill 更轻量——几条规则、几句话，就能让 AI 避开特定场景下的常见坑。每个 Rule 以单个 Markdown 文件存放在 `rules/` 目录下。
+
+---
+
+## 规则索引
+
+| &nbsp; | 规则 | 简介 | 使用方式 |
+|:------:|------|------|---------|
+| 🛡️ | [**safe-terminal-runner**](./rules/safe-terminal-runner.md) | 禁止 AI 用单行内联脚本执行复杂逻辑，强制采用"临时文件+环境变量隔离"模式，解决 Windows 下转义报错与终端卡死 | 追加到 `.cursorrules` / `.windsurfrules` / 系统提示 |
+
+---
+
+## 如何使用
+
+根据你使用的 IDE 或工具，将对应规则文件的内容复制到项目配置中：
+
+- **Cursor**: 追加到 `.cursorrules`
+- **Windsurf**: 追加到 `.windsurfrules`
+- **Trae**: 追加到 `.trae/rules/project_rules.md`
+- **CLI Agents (Cline / Aider)**: 粘贴到 Custom System Prompt
+- **Claude Code / Opencode**: 将规则文件路径告知工具，或复制到系统提示
+
+> 🛡️ **防御提示**：为防止 AI 生成的临时脚本污染代码库，建议在项目 `.gitignore` 中添加 `temp_*` 规则。
+
+---
+
+## 目录结构
 
 ```
-gitignore
-# Ignore AI temporary scripts
-temp_*
+ai-ide-terminal-fix/
+├── README.md
+├── LICENSE.md
+└── rules/
+    └── <rule-name>.md     ← 每条规则一个文件
 ```
+
+---
+
+## 添加新规则
+
+```bash
+# 1. 创建规则文件（小写连字符命名）
+touch rules/my-new-rule.md
+
+# 2. 在本文件的规则索引中补充一行记录
+```
+
+---
+
+<div align="center">
+<sub>持续更新中 · 欢迎 Fork 构建你自己的规则库</sub>
+</div>

@@ -1,9 +1,3 @@
----
-name: safe-terminal-runner
-description: 强制 AI 采用“临时文件+环境变量隔离”的模式运行脚本，彻底解决 Windows 下单行命令转义报错、终端卡死问题。
-tags: [terminal, robust, backend, windows-fix]
----
-
 # 终端执行与脚本运行规则 (Terminal & Script Execution Rules)
 
 在需要执行包含复杂逻辑、环境变量、特殊字符（如单/双引号、括号、`%`、`$`等）的 Node.js 脚本或数据库操作时，必须遵守以下强制规则：
