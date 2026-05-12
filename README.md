@@ -1,6 +1,6 @@
 <div align="center">
 
-# ✦ AI Rules Hub
+# ✦ Person Rules Hub
 
 **个人 AI 规则合集** · 将专业行为约束封装为可复用的规则文件
 
